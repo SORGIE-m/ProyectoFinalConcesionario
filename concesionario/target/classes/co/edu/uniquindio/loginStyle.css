@@ -1,0 +1,26 @@
+.fondo_login{
+    -fx-background-color: #ffffff;
+}
+.btn_general{
+    -fx-background-color: #d3ac80;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 30, 0, 0, 0);
+    -fx-background-radius: 20px;
+}
+.btn_general:hover{
+    -fx-background-color: #856c4f;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 30, 0, 0, 0);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 20px;
+}
+.text-field {
+    -fx-background-radius: 5;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: #606467;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 30, 0, 0, 0);
+}
+
+.text-field:focused {
+    -fx-border-color: #8dbfda;
+    -fx-background-color: #e5ebec;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 30, 0, 0, 0);
+}
