@@ -10,6 +10,7 @@ public class Concesionario {
     private List<Cliente> lista_clientes;
     private List<Vehiculo> lista_vehiculos;
     private List<Moto> lista_motos;
+    private List<DetalleTransaccion> lista_transacciones;
 
     public Concesionario(String nombre){
         this.nombre = nombre;
@@ -18,6 +19,7 @@ public class Concesionario {
         lista_empleados = new LinkedList<>();
         lista_vehiculos = new LinkedList<>();
         lista_motos = new LinkedList<>();
+        lista_transacciones = new LinkedList<>();
     }
 
     /**
@@ -96,6 +98,14 @@ public class Concesionario {
 
     public void setLista_motos(List<Moto> lista_motos) {
         this.lista_motos = lista_motos;
+    }
+
+    public List<DetalleTransaccion> getLista_transacciones() {
+        return lista_transacciones;
+    }
+
+    public void setLista_transacciones(List<DetalleTransaccion> lista_transacciones) {
+        this.lista_transacciones = lista_transacciones;
     }
     
 }

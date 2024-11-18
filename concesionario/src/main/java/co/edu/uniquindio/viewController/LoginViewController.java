@@ -1,17 +1,24 @@
 package co.edu.uniquindio.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.model.Administrador;
+import co.edu.uniquindio.model.Camion;
+import co.edu.uniquindio.model.Cliente;
 import co.edu.uniquindio.model.Concesionario;
 import co.edu.uniquindio.model.Empleado;
+import co.edu.uniquindio.model.Vehiculo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class LoginViewController implements Initializable{
     private Concesionario concesionario;
@@ -67,32 +74,53 @@ public class LoginViewController implements Initializable{
      * Cuando se le da click a iniciar sesion, se extrae el texto de los textField y se usa para buscar el usuario dentro del
      * concesionario, si no existe el usuario ingresado, envia un mensaje por consola avisando el error
      * @param event
-     */
-    @FXML
-    void clickLogin(ActionEvent event) {
+          * @throws IOException 
+          */
+         @FXML
+         void clickLogin(ActionEvent event) throws IOException {
         if (!txtContra.getText().isEmpty() && !txtUsuario.getText().isEmpty()) {
             if (tipoPersona == "empleado") {
                 Empleado p = concesionario.buscarEmpleado(txtUsuario.getText(), txtContra.getText());
-                abrirVentanaEmpleado(p);
+                abrirVentanaEmpleado();
+                this.empleadoUsando = p;
             }else if (tipoPersona == "admin") {
                 Administrador a = concesionario.buscarAdmin(txtUsuario.getText(), txtContra.getText());
-                abrirVentanaAdmin(a);
+                abrirVentanaAdmin();
+                this.adminUsando = a;
             }
         }else{
             System.out.println("Este usuario no existe");
+            txtContra.clear();
+            txtUsuario.clear();
         }
         
     }
     /**
      * Metodo para abrir la ventana con las acciones que puede hacer el empleado
+     * @throws IOException 
      */
-    public void abrirVentanaEmpleado(Empleado p){
-        System.out.println("Inicia Empleado");
+    public void abrirVentanaEmpleado() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/empleado-view.fxml"));
+        Scene scene = new Scene(loader.load(), 600,400);
+        Stage stage = new Stage();
+
+        //Se envia el consesionario que se creo aqui
+        EmpleadoViewController controller = loader.getController();
+        controller.setConcesionario(concesionario);
+        controller.setEmpleadoUsando(empleadoUsando);
+        controller.inicializar();
+
+        //Cerrar la ventana del login
+        Stage stage2 = (Stage) btnAdmin.getScene().getWindow();
+        stage2.close();
+        
+        stage.setScene(scene);
+        stage.show();
     }
     /**
      * Metodo para abrir la ventana con las acciones que puede hacer el administrador
      */
-    public void abrirVentanaAdmin(Administrador a){
+    public void abrirVentanaAdmin(){
         System.out.println("Inicia Admin");
 
     }
@@ -115,10 +143,23 @@ public class LoginViewController implements Initializable{
 
         //Creacion de administradores
         Administrador admin1 = new Administrador("Saitama", "11111", 1111111, "01", "admin", "admin");
+        
+        //Creacion de clientes
+        Cliente cliente1 = new Cliente("Gus", "Pollos hermanos", 0000000, "01");
+        Cliente cliente2 = new Cliente("Sofia", "Pollos", 0000000, "02");
+
+        //Creacion de vehiculos
+        Camion camion1 = new Camion("Mazda", "Nuevo", "20219", 70, 900, 10, 500, false, false, false);
+        Camion camion2 = new Camion("Samsung", "Nuevecito", "1600", 200, 100, 5, 300, false, true, false);
 
         concesionario.getLista_administradores().add(admin1);
         concesionario.getLista_empleados().add(empleado1);
         concesionario.getLista_empleados().add(empleado2);
+        concesionario.getLista_clientes().add(cliente1);
+        concesionario.getLista_clientes().add(cliente2);
+        concesionario.getLista_vehiculos().add(camion1);
+        concesionario.getLista_vehiculos().add(camion2);
+
 
         this.concesionario = concesionario;
     }

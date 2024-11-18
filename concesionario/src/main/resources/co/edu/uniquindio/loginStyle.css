@@ -7,7 +7,7 @@
     -fx-background-radius: 20px;
 }
 .btn_general:hover{
-    -fx-background-color: #856c4f;
+    -fx-background-color: #a58868;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 30, 0, 0, 0);
     -fx-text-fill: #ffffff;
     -fx-background-radius: 20px;
